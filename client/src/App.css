@@ -1,0 +1,54 @@
+a{
+    color:black !important;
+}
+
+.brand-logo,h2{
+    font-family: 'Roboto Slab', serif;
+}
+
+.mycard{
+    margin-top: 35px;
+}
+
+.auth-card{
+    padding: 25px;
+    text-align: center;
+    max-width: 575px;
+    margin:10px auto;
+}
+
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid rgb(5, 139, 228)!important;
+    box-shadow: 0 1px 0 0 rgb(5, 139, 228)!important;
+  }
+
+.gallery{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.item{
+    width:30%;
+}
+
+.profile{
+    max-width: 700px;
+    margin: 0px auto;
+}
+
+.material-icons:hover{
+    cursor: pointer;
+}
+
+.home-card{
+    max-width: 600px;
+    height: max-content;
+    margin:30px auto;
+}
+
+#toast-container{
+    top: 64px;
+    right: 20px;
+    left: auto;
+}
