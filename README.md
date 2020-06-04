@@ -24,11 +24,18 @@ A website similar to Instagram where you can post and follow various people.
    - Then cd into the server folder and run `node app.js` command
    - Open `http://localhost:3000/` in your browser
    
+## Tech Stack of this project
+
+* Frontend: Reactjs, Materialize
+* Backend: Nodejs, Expressjs
+* Database: MongoDB
+   
 ## To develop further
 
+- [ ] Deploy
 - [ ] Fixing comment bug
 - [ ] Fixing routes for log out
 - [ ] Feature to delete a comment
 - [ ] Display profile picture besides name of the user in a post
 - [ ] Feature to delete a profile
-- [ ] Fixing bugs
+
