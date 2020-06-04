@@ -7,6 +7,7 @@ const requireLogin = require('../middleware/requireLogin');
 router.get('/allpost',requireLogin,(req,res)=>{
     Post.find()
     .populate("postedBy","_id name")
+    .sort('-createdAt')
     .then((posts)=>{
         res.json({posts})
     })
@@ -14,12 +15,14 @@ router.get('/allpost',requireLogin,(req,res)=>{
         console.log(err);
         
     })
+
 })
 
 
 router.get('/followerpost',requireLogin,(req,res)=>{
     Post.find({postedBy:{$in:req.user.following}})
     .populate("postedBy","_id name")
+    .sort('-createdAt')
     .then((posts)=>{
         res.json({posts})
     })
