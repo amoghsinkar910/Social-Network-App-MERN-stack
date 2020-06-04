@@ -6,7 +6,14 @@ const User = mongoose.model("User");
 const jwt = require('jsonwebtoken');
 const{JWT_SECRET} = require('../keys');
 const requireLogin = require('../middleware/requireLogin');
+const nodemailer = require('nodemailer')
+const sendgridTransport = require('nodemailer-sendgrid-transport')
 
+const transporter = nodemailer.createTransport(sendgridTransport({
+    auth:{
+        api_key:"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"
+    }
+}));
 
 router.post('/signup',(req,res)=>{
     const {name,email,password,pic} = req.body;
@@ -28,6 +35,12 @@ router.post('/signup',(req,res)=>{
             })
             user.save()
             .then((user)=>{
+                transporter.sendMail({
+                    to:user.email,
+                    from:"developer235516@gmail.com",
+                    subject:"Sign Up successful.",
+                    html:"<h2>Welcome!Thank you for registering.</h2>"
+                })
                 res.json({message:"Saved Successfully"})
             })
             .catch((err)=>{
@@ -68,4 +81,10 @@ router.post('/signin',(req,res)=>{
         })
     })
 })
+
+router.post('/resetpassword',(req,res)=>{
+    
+})
+
+
 module.exports = router;
