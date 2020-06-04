@@ -8,6 +8,7 @@ const{JWT_SECRET} = require('../keys');
 const requireLogin = require('../middleware/requireLogin');
 const nodemailer = require('nodemailer')
 const sendgridTransport = require('nodemailer-sendgrid-transport')
+const crypto = require('crypto')
 
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth:{
@@ -83,7 +84,56 @@ router.post('/signin',(req,res)=>{
 })
 
 router.post('/resetpassword',(req,res)=>{
-    
+    crypto.randomBytes(32,(err,buffer)=>{
+        if(err){
+            console.log(err);
+            
+        }
+        const token = buffer.toString("hex");
+        User.findOne({email:req.body.email})
+        .then(user=>{
+            if(!user){
+                return res.json({error:"User does not exist"})
+            }
+            user.resetToken = token;
+            user.expireToken = Date.now() + 3600000;
+            user.save().then(result=>{
+                transporter.sendMail({
+                    to:user.email,
+                    from:"developer235516@gmail.com",
+                    subject:"Reset password",
+                    html:`<p>Password reset link as per your request.Click the below link to reset</p>
+                    <h5>Click here to <a href="http://localhost:3000/reset/${token}">reset password</a></h5>
+                    `
+                })
+                res.json({message:"Check your email for resetting password"})
+            })
+        })
+    })
+})
+
+
+router.post('/newpassword',(req,res)=>{
+    const newPassword = req.body.password;
+    const sentToken = req.body.token;
+    User.findOne({resetToken:sentToken,expireToken:{$gt:Date.now()}})
+    .then(user=>{
+        if(!user){
+            return res.json({error:"Session Expired.Please try again"})
+        }
+        bcrypt.hash(newPassword,16)
+        .then(hashedpassword=>{
+            user.password = hashedpassword;
+            user.resetToken = undefined;
+            user.expireToken = undefined;
+            user.save().then((saveduser)=>{
+                res.json({message:"Password updated successfully"})
+            })
+        })
+    }).catch(err=>{
+        console.log(err);
+        
+    })
 })
 
 
