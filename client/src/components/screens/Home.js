@@ -84,14 +84,15 @@ const Home = ()=>{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
             },
             body:JSON.stringify({
-                postId,
-                text
+                text,
+                postId
+                
             })
         }).then(res=>res.json())
         .then(result=>{
             console.log(result)
             const newData = data.map(item=>{
-              if(item._id==result._id){
+              if(item._id===result._id){
                   return result
               }else{
                   return item
@@ -156,10 +157,10 @@ const Home = ()=>{
                             })
                         }
                         <form onSubmit={(e)=>{
-                        e.preventDefault()
-                        makeComment(e.target[0].value,item._id)
-                        }}>
-                        <input type="text" placeholder="add a comment" />  
+                            e.preventDefault()
+                            makeComment(e.target[0].value,item._id)
+                            }}>
+                            <input type="text" placeholder="add a comment" />  
                         </form>
                         
                         </div>
