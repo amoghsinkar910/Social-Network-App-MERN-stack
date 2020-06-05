@@ -32,7 +32,7 @@ A website similar to Instagram where you can post and follow various people.
    
 ## To develop further
 
-- [ ] Deploy
+- [X] Deploy
 - [ ] Fixing comment bug
 - [ ] Fixing routes for log out
 - [ ] Feature to delete a comment
