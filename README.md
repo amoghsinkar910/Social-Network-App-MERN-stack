@@ -33,7 +33,7 @@ A website similar to Instagram where you can post and follow various people.
 ## To develop further
 
 - [X] Deploy
-- [ ] Fixing comment bug
+- [X] Fixing comment bug
 - [ ] Fixing routes for log out
 - [ ] Feature to delete a comment
 - [ ] Display profile picture besides name of the user in a post
